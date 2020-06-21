@@ -1,0 +1,167 @@
+#main {
+    margin: 0 auto;
+    width: 550px;
+    height: 430px;
+    margin-top: 20px;
+    padding: 30px;
+    font-family: 'Roboto', sans-serif;
+    border-radius: 10px;
+    background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+}
+
+#search-section {
+    margin-bottom: 20px;
+    position: relative;
+    left: -10px;
+}
+
+#search-bar{
+    width: 71%;
+    border-radius: 3px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+#today {
+    background-color: white;
+    height: 320px;
+    margin-left: 10px;
+    padding-left: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.five-day {
+    background-color: white;
+    position: relative;
+    top: -5px;
+    margin: 10px;
+    margin-left: -2px;
+    width: 180px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/*left side 3 row styling*/
+
+#top{
+    margin-top: 5px;
+    padding-left: 20px;
+}
+
+#middle{
+    position: relative;
+    top: -50px;
+}
+
+#bottom{
+    position: relative;
+    top: -110px;
+}
+
+.current-precip{
+    position: relative;
+    top: 15px;
+    left: 5px;
+}
+
+button {
+    display: inline;
+    border: 1px solid #09203f;
+    background-image: linear-gradient(to top, #09203f 0%, #537895 100%);
+    color: white;
+}
+
+#unit{
+    position: relative;
+    right: -215px;
+    top: 0px;
+    font-size: 10px;
+}
+
+/*emoji*/
+#main-emoji {
+    font-size: 75px;
+}
+
+/*text*/
+h1 {
+
+    background: -webkit-linear-gradient( #09203f 0%, #537895 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: block;
+    
+}
+
+
+h3 {
+    text-transform: uppercase;
+    position: relative;
+    top: 15px;
+    background: -webkit-linear-gradient( #09203f 0%, #537895 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#main-date{
+    position: relative;
+    top: -15px;
+    left: -12px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.forecast-date {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+}
+
+.forecast-temps {
+    font-size: 18px;
+    position: relative;
+    top: -5px;
+}
+
+#little-header {
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 25px;
+    padding-top: 5px;
+}
+
+#current-temp{
+    font-size: 100px; 
+    background: -webkit-linear-gradient( #09203f 0%, #537895 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#high-low{
+    position: relative;
+    top: -35px;
+    font-family: 'Montserrat', sans-serif;
+    left: 5px;
+}
+
+#precip-details {
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+
+/*Little Boxes*/
+.small-forecast-box{
+    padding-left: 5px;
+    padding-right: 5px;
+    height: 55px;
+
+}
+
+.little-emoji {
+    font-size: 30px;
+    margin-top: 3px;
+}

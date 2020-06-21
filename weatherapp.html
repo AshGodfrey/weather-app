@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="weatherapp.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Raleway:wght@300&family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+   <div id="main">
+       <div id="search-section">
+           <form>
+                <input type="text" placeholder="Search.." id="search-bar">
+                <button type="submit">Search</button>
+                <button id="current-location">Current</button>
+           </form>
+       </div>
+       <div id="forecast-section">
+           <div class="row">
+                <div id="today" class="col-7">
+                    <div id="top">
+                            <div id="unit" class="col-2.5">
+                                    <button id="celsius" value="celsius"><strong>C</strong></button> <button id="fahrenheit" value="fahrenheit"><strong>F</strong></button>
+                                </div>
+                        <div class="row top-details">
+                            <h1>
+                                <strong id="city-name">Denver, USA  </strong>
+                            </h1>
+                        </div>
+                        <div class="date">
+                            <p id="main-date">11:39 AM, Saturday June 29th</p>   
+                        </div>
+                    </div>
+                    <div id="middle">
+                        <span>
+                            <strong id="current-temp">20°F</strong>
+                        </span>
+                        <p id='high-low'>10°F/20°F</p>
+                    </div>
+                    <div id="bottom">
+                        <div class="row">
+                            <div class="col-3">
+                                <span id="main-emoji">
+                                    &#x1F327;
+                                </span>
+                            </div>
+                            <div class="col-9 current-precip">
+                                <h3><strong>rain</strong></h3>
+                                <p id='precip-details'>
+                                    chance of rain 65%
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="future-forecast" class="col 5">
+                    <div id="five-day-title">
+                       
+                    </div>
+                    <div class="five-day">
+                        <div class="row small-forecast-box">
+                            <div class="little-forecast col-8">
+                                <span class="forecast-date">
+                                    Tomorrow <br/>
+                                </span>
+                                <div class="forecast-temps">
+                                    10°F/20°F
+                                </div>
+                            </div>
+                            <div class="little-emoji col-4">
+                                🌨️
+                            </div>
+                        </div>
+                    </div>
+                    <div class="five-day">
+                        <div class="row small-forecast-box">
+                                <div class="little-forecast col-8">
+                                    <span class="forecast-date">
+                                        Monday, June 30th
+                                    </span><br/>
+                                    <div class="forecast-temps">
+                                        10°F/20°F
+                                    </div>
+                                </div>
+                                <div class="little-emoji col-4">
+                                    ⛅
+                                </div>
+                            </div>
+                    </div>
+                    <div class="five-day">
+                        <div class="row small-forecast-box">
+                                <div class="little-forecast col-8">
+                                    <span class="forecast-date">
+                                        Tuesday, July 1st <br/>
+                                    </span>
+                                    <div class="forecast-temps">
+                                        10°F/20°F
+                                    </div>
+                                </div>
+                                <div class="little-emoji col-4">
+                                    🌨️
+                                </div>
+                            </div>
+                    </div>
+                    <div class="five-day">
+                        <div class="row small-forecast-box">
+                                <div class="little-forecast col-8">
+                                    <span class="forecast-date">
+                                        Wednesday, July 2nd <br/>
+                                    </span>
+                                    <div class="forecast-temps">
+                                        10°F/20°F
+                                    </div>
+                                </div>
+                                <div class="little-emoji col-4">
+                                    🌨️
+                                </div>
+                            </div>
+                    </div>
+                    <div class="five-day small-forecast-box">
+                        <div class="row">
+                                <div class="little-forecast col-8">
+                                    <span class="forecast-date">
+                                        Thursday, July 3rd <br/>
+                                    </span>
+                                    <div class="forecast-temps">
+                                        10°F/20°F
+                                    </div>
+                                </div>
+                                <div class="little-emoji col-4">
+                                    🌨️
+                                </div>
+                            </div>
+                    </div>
+                </div>
+           </div>
+       </div>
+   </div>
+</body>
+<script type="text/javascript" src="script.js"></script>
+</html>
