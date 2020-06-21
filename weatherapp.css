@@ -130,8 +130,8 @@ h3 {
 }
 
 .forecast-date {
+    font-size: 10px;
     font-family: 'Montserrat', sans-serif;
-    font-size: 9px;
 }
 
 .forecast-temps {
@@ -143,8 +143,8 @@ h3 {
 .forecast-desc{
     font-size: 10px;
     position: relative;
-    top: -10px;
     font-family: 'Montserrat', sans-serif;
+    top: -10px;
 }
 
 #little-header {
@@ -186,5 +186,5 @@ h3 {
 
 .little-emoji {
     font-size: 30px;
-    margin-top: 3px;
+    margin-top: 4px;
 }

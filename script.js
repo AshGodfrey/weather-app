@@ -1,28 +1,43 @@
 let apiKey='e573bc5f2edcf55605d7e7fcd2e01d03'
 let apiUrl=`https://api.openweathermap.org/data/2.5/weather?q=`
 let altUrl = `https://api.openweathermap.org/data/2.5/weather?`
+let units =  `&units=imperial`
 let now = new Date();
 let date = document.querySelector("#main-date")
 const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 const months = ["January", "February", "March", "April", "May", "June", "July","August", "September", "October", "November", "December"];
-
+let input = document.querySelector("#search-bar")
 date.innerHTML = `${days[now.getDay()]}, ${months[now.getMonth()]} ${now.getDate()}`
 
 //set Default Location data
-axios.get(`${apiUrl}cupertino&units=imperial&appid=${apiKey}`).then(getDetails)
-axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=cupertino&units=imperial&appid=${apiKey}`).then(displayForecast)
+axios.get(`${apiUrl}${input.value}${units}&appid=${apiKey}`).then(getDetails)
+axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${input.value}${units}&appid=${apiKey}`).then(displayForecast)
 
 //Functions
 function searchCity(event) {
   event.preventDefault()
-  let input = document.querySelector("#search-bar")
-  axios.get(`${apiUrl}${input.value}&units=imperial&appid=${apiKey}`).then(getDetails)
-  
-  axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${input.value}&units=imperial&appid=${apiKey}`).then(displayForecast)
+  axios.get(`${apiUrl}${input.value}${units}&appid=${apiKey}`).then(getDetails)
+  axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${input.value}${units}&appid=${apiKey}`).then(displayForecast)
+}
+
+function formatHours(timestamp){
+  let date = new Date(timestamp);
+  let hours = date.getHours();
+  let amOrPm = hours >= 12 ? 'PM' : 'AM';
+  hours = (hours % 12) || 12;
+  if (hours < 10){
+    hours = `0${hours}`;
+  }
+  let minutes = date.getMinutes();
+  if(minutes < 10){
+    minutes =  `0${minutes}`;
+  }
+  let month = date.getMonth()
+  let today = date.getDate()
+  return `${months[month]} ${today}, ${hours}:${minutes} ${amOrPm} `
 }
 
 function displayForecast(response){
-  console.log(response)
   let futureForecast = document.querySelector("#future-forecast");
   futureForecast.innerHTML = null;
 
@@ -33,15 +48,15 @@ function displayForecast(response){
       <div class="row small-forecast-box">
           <div class="little-forecast col-8">
               <span class="forecast-date">
-                  Tomorrow <br/>
+                  ${formatHours(forecast.dt * 1000)} <br/>
               </span>
               <div class="forecast-temps">
-                  ${Math.round(forecast.main.temp)}°F<br>
-                  <span class='forecast-desc'>${forecast.weather[0].description}</span>
+                ${Math.round(forecast.main.temp)}°F<br>
+                <span class='forecast-desc'>${forecast.weather[0].description}</span>
               </div>
           </div>
           <div class="little-emoji col-4">
-              🌨️
+           ${displayForecastEmoji(forecast.weather[0].main, forecast.weather[0].description)}
           </div>
       </div>
     </div>`
@@ -51,7 +66,8 @@ function displayForecast(response){
 function showPosition(position){
   let longitude = position.coords.longitude
   let latitude = position.coords.latitude
-  axios.get(`${altUrl}lat=${latitude}&lon=${longitude}&units=imperial&appid=${apiKey}`).then(getDetails)
+  axios.get(`${altUrl}lat=${latitude}&lon=${longitude}${units}&appid=${apiKey}`).then(getDetails)
+  axios.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}${units}&appid=${apiKey}`).then(displayForecast)
 }
 
 function currentLocation(){
@@ -88,6 +104,50 @@ function changeColors(color, text){
   //h1: 
   //h3: 
   //current-temp: 
+}
+
+function displayForecastEmoji(main, description){
+  switch(main){
+    case "Clouds":
+      switch(description){
+        case 'few clouds':
+            return '<span class="forcast-emoji">&#x1F324;</span>';
+            break;
+        case 'scattered clouds':
+            return '<span class="forcast-emoji">&#x26C5;</span>';
+            break;
+        case 'broken clouds':
+            return '<span class="forcast-emoji">&#x1F325;</span>';
+            break;
+        case 'overcast clouds':
+            return'<span class="forcast-emoji">&#x2601;&#xFE0F;</span>';
+            break;
+      }
+    break;
+    case "Clear":
+      return'<span class="forcast-emoji">&#9728;&#65039;</span>';
+      break;
+    case "Snow":
+      return'<span class="forcast-emoji">&#x1F328;</span>';
+      break;
+    case "Rain":
+      return'<span class="forcast-emoji">&#x1F327;</span>';
+      break;
+    case "Thunderstorm":
+      return'<span class="forcast-emoji">⛈</span>';
+      break;
+    case "Drizzle":
+      return'<span class="forcast-emoji">&#x1F326;</span>';
+      break;
+    case "Squall":
+    case "Tornado": 
+      return'<span class="forcast-emoji">&#x1F32A</span>';
+      break;
+    case 'Sand':
+    default:
+        return'<span class="forcast-emoji">&#x1F32B</span>';
+      break;
+  }
 }
 
 function displayEmoji(main, description){
@@ -147,6 +207,17 @@ function displayEmoji(main, description){
   }
 }
 
+function changeUnits(){
+  if(this.value == 'celsius'){
+    units = `&units=metric`
+  } else{
+    units=`&units=imperial`
+  }
+  axios.get(`${apiUrl}${input.value}${units}&appid=${apiKey}`).then(getDetails)
+  axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${input.value}${units}&appid=${apiKey}`).then(displayForecast)
+}
+
+
 //Events
 let form = document.querySelector("form");
 form.addEventListener("submit", searchCity);
@@ -154,8 +225,8 @@ form.addEventListener("submit", searchCity);
 let current = document.querySelector("#current-location")
 current.addEventListener("click", currentLocation)
 
-//let celsiusButton = document.querySelector("#celsius");
-//celsiusButton.addEventListener("click", changeTemp); 
+let celsiusButton = document.querySelector("#celsius");
+celsiusButton.addEventListener("click", changeUnits); 
 
-//let fahrenheitButton = document.querySelector("#fahrenheit");
-//fahrenheitButton.addEventListener("click", changeTemp); 
+let fahrenheitButton = document.querySelector("#fahrenheit");
+fahrenheitButton.addEventListener("click", changeUnits); 
