@@ -29,6 +29,7 @@ function currentLocation(){
 }
 
 function getDetails(response){  
+  console.log(response)
   let temp = document.querySelector("#current-temp")
   let city = document.querySelector("#city-name")
   let low = document.querySelector("#low")
@@ -68,18 +69,21 @@ function displayEmoji(main, description){
   let emoji = document.querySelector('#main-emoji')
   switch(main){
     case "Clouds":
-      changeColors('linear-gradient(to top, #BDBBBE 0%, #727378 100%)');
       switch(description){
         case 'few clouds':
+            changeColors('linear-gradient(to top, #a7bdca 0%, #5493b2)')
             emoji.innerHTML = '	&#x1F324;';
             break;
         case 'scattered clouds':
+            changeColors('linear-gradient(to top, #a7bdca 0%, #5493b2)')
             emoji.innerHTML = '&#x26C5;';
             break;
         case 'broken clouds':
+            changeColors('linear-gradient(to top, #BDBBBE 0%, #727378 100%)');
             emoji.innerHTML = '&#x1F325;';
             break;
         case 'overcast clouds':
+            changeColors('linear-gradient(to top, #BDBBBE 0%, #727378 100%)');
             emoji.innerHTML = '&#x2601;&#xFE0F;';
             break;
       }
