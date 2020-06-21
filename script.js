@@ -15,8 +15,6 @@ axios.get(`${apiUrl}cupertino&units=imperial&appid=${apiKey}`).then(getTemperatu
 function searchCity(event) {
   event.preventDefault()
   let input = document.querySelector("#search-bar")
-  let city = document.querySelector("#city-name")
-  city.innerHTML = `${input.value}`
   axios.get(`${apiUrl}${input.value}&units=imperial&appid=${apiKey}`).then(getTemperature)
 }
 
@@ -33,11 +31,24 @@ function currentLocation(){
 function getTemperature(response){  
   console.log(response)
   let temp = document.querySelector("#current-temp")
-  temp.innerHTML = (`${Math.round(response.data.main.temp)}°F`)
   let city = document.querySelector("#city-name")
+  let low = document.querySelector("#low")
+  let high = document.querySelector("#high")
+  let description = document.querySelector("#weather-description")
+  let subdescription = document.querySelector("#precip-details")
+  let wind = document.querySelector("#wind")
+  let humidity = document.querySelector("#humidity")
+  temp.innerHTML = (`${Math.round(response.data.main.temp)}°F`)
   city.innerHTML = `${response.data.name}`
-
+  low.innerHTML = (`${Math.round(response.data.main.temp_min)}°F`)
+  high.innerHTML = (`${Math.round(response.data.main.temp_max)}°F`)
+  description.innerHTML =  response.data.weather[0].main
+  subdescription.innerHTML =  response.data.weather[0].description
+  wind.innerHTML = response.data.wind.speed
+  humidity.innerHTML = response.data.main.humidity
 }
+
+//wind speed, humidity, weather description
 
 //Events
 let form = document.querySelector("form");
