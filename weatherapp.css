@@ -135,9 +135,16 @@ h3 {
 }
 
 .forecast-temps {
-    font-size: 18px;
+    font-size: 15px;
     position: relative;
     top: -5px;
+}
+
+.forecast-desc{
+    font-size: 10px;
+    position: relative;
+    top: -10px;
+    font-family: 'Montserrat', sans-serif;
 }
 
 #little-header {

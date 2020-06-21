@@ -10,12 +10,42 @@ date.innerHTML = `${days[now.getDay()]}, ${months[now.getMonth()]} ${now.getDate
 
 //set Default Location data
 axios.get(`${apiUrl}cupertino&units=imperial&appid=${apiKey}`).then(getDetails)
+axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=cupertino&units=imperial&appid=${apiKey}`).then(displayForecast)
 
 //Functions
 function searchCity(event) {
   event.preventDefault()
   let input = document.querySelector("#search-bar")
   axios.get(`${apiUrl}${input.value}&units=imperial&appid=${apiKey}`).then(getDetails)
+  
+  axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${input.value}&units=imperial&appid=${apiKey}`).then(displayForecast)
+}
+
+function displayForecast(response){
+  console.log(response)
+  let futureForecast = document.querySelector("#future-forecast");
+  futureForecast.innerHTML = null;
+
+  for (let i = 0; i < 5; i ++){
+    let forecast = response.data.list[i];
+    futureForecast.innerHTML += `
+    <div class="five-day">
+      <div class="row small-forecast-box">
+          <div class="little-forecast col-8">
+              <span class="forecast-date">
+                  Tomorrow <br/>
+              </span>
+              <div class="forecast-temps">
+                  ${Math.round(forecast.main.temp)}°F<br>
+                  <span class='forecast-desc'>${forecast.weather[0].description}</span>
+              </div>
+          </div>
+          <div class="little-emoji col-4">
+              🌨️
+          </div>
+      </div>
+    </div>`
+  }
 }
 
 function showPosition(position){
@@ -29,7 +59,6 @@ function currentLocation(){
 }
 
 function getDetails(response){  
-  console.log(response)
   let temp = document.querySelector("#current-temp")
   let city = document.querySelector("#city-name")
   let low = document.querySelector("#low")
@@ -52,17 +81,13 @@ function getDetails(response){
 function changeColors(color, text){
   //let button = document.querySelectorAll("button")
   //button.forEach(button => {
-   // button.style.background = color;
-   // button.style.border = `1px solid #4facfe`
- // })
-
+  //button.style.background = color;
+  //button.style.border = `0px solid #4facfe`
+ //})
   document.querySelector("#main").style.background = color;
   //h1: 
   //h3: 
   //current-temp: 
-  //main: 
-  //fog: background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
-  //clear: background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
 }
 
 function displayEmoji(main, description){
