@@ -8,6 +8,10 @@ const months = ["January", "February", "March", "April", "May", "June", "July","
 
 date.innerHTML = `${days[now.getDay()]}, ${months[now.getMonth()]} ${now.getDate()}`
 
+//set Default Location data
+axios.get(`${apiUrl}cupertino&units=imperial&appid=${apiKey}`).then(getTemperature)
+
+//Functions
 function searchCity(event) {
   event.preventDefault()
   let input = document.querySelector("#search-bar")
@@ -26,14 +30,8 @@ function currentLocation(){
   navigator.geolocation.getCurrentPosition(showPosition)
 }
 
-function changeTemp() {
-  let temp = document.querySelector("#current-temp")
-  if(this.value == 'celsius'){
-    temp.innerHTML = "-7°C"
-  }
-}
-
 function getTemperature(response){  
+  console.log(response)
   let temp = document.querySelector("#current-temp")
   temp.innerHTML = (`${Math.round(response.data.main.temp)}°F`)
   let city = document.querySelector("#city-name")
@@ -41,15 +39,15 @@ function getTemperature(response){
 
 }
 
-
+//Events
 let form = document.querySelector("form");
 form.addEventListener("submit", searchCity);
 
 let current = document.querySelector("#current-location")
 current.addEventListener("click", currentLocation)
 
-let celsiusButton = document.querySelector("#celsius");
-celsiusButton.addEventListener("click", changeTemp); 
+//let celsiusButton = document.querySelector("#celsius");
+//celsiusButton.addEventListener("click", changeTemp); 
 
-let fahrenheitButton = document.querySelector("#fahrenheit");
-fahrenheitButton.addEventListener("click", changeTemp); 
+//let fahrenheitButton = document.querySelector("#fahrenheit");
+//fahrenheitButton.addEventListener("click", changeTemp); 
