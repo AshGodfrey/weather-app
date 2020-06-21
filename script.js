@@ -103,10 +103,11 @@ function changeColors(backgroundColor, secondColor){
     button.style.background = secondColor;
     button.style.border = `1px solid ${secondColor}`
     })
-  document.querySelector("#main").style.background = backgroundColor;
-  //h1: 
-  //h3: 
-  //current-temp: 
+  document.querySelector("#main").style.background = backgroundColor
+  console.log()
+  document.querySelector("#city-name").style.color = secondColor
+  document.querySelector("h3").style.color = secondColor
+  document.querySelector("#current-temp").style.color = secondColor
 }
 
 function displayForecastEmoji(main, description){
@@ -159,11 +160,11 @@ function displayEmoji(main, description){
     case "Clouds":
       switch(description){
         case 'few clouds':
-            changeColors('linear-gradient(to top, #a7bdca 0%, #5493b2)', '#a7bdca')
+            changeColors('linear-gradient(to top, #a7bdca 0%, #5493b2)', '#437791')
             emoji.innerHTML = '	&#x1F324;';
             break;
         case 'scattered clouds':
-            changeColors('linear-gradient(to top, #a7bdca 0%, #5493b2)', '#a7bdca')
+            changeColors('linear-gradient(to top, #a7bdca 0%, #5493b2)', '#437791')
             emoji.innerHTML = '&#x26C5;';
             break;
         case 'broken clouds':
