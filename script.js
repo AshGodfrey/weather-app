@@ -7,6 +7,8 @@ let date = document.querySelector("#main-date")
 const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 const months = ["January", "February", "March", "April", "May", "June", "July","August", "September", "October", "November", "December"];
 let input = document.querySelector("#search-bar")
+let tempUnit= `°F`
+let speedUnit = `mph`
 date.innerHTML = `${days[now.getDay()]}, ${months[now.getMonth()]} ${now.getDate()}`
 
 //set Default Location data
@@ -54,7 +56,7 @@ function displayForecast(response){
                   ${formatHours(forecast.dt * 1000)} <br/>
               </span>
               <div class="forecast-temps">
-                ${Math.round(forecast.main.temp)}°F<br>
+                ${Math.round(forecast.main.temp)}${tempUnit}<br>
                 <span class='forecast-desc'>${forecast.weather[0].description}</span>
               </div>
           </div>
@@ -86,13 +88,13 @@ function getDetails(response){
   let subdescription = document.querySelector("#precip-details")
   let wind = document.querySelector("#wind")
   let humidity = document.querySelector("#humidity")
-  temp.innerHTML = (`${Math.round(response.data.main.temp)}°F`)
+  temp.innerHTML = (`${Math.round(response.data.main.temp)}${tempUnit}`)
   city.innerHTML = `${response.data.name}`
-  low.innerHTML = (`${Math.round(response.data.main.temp_min)}°F`)
-  high.innerHTML = (`${Math.round(response.data.main.temp_max)}°F`)
+  low.innerHTML = (`${Math.round(response.data.main.temp_min)}${tempUnit}`)
+  high.innerHTML = (`${Math.round(response.data.main.temp_max)}${tempUnit}`)
   description.innerHTML =  response.data.weather[0].main
   subdescription.innerHTML =  response.data.weather[0].description
-  wind.innerHTML = `${response.data.wind.speed}mph`
+  wind.innerHTML = `${response.data.wind.speed} ${speedUnit}`
   humidity.innerHTML = response.data.main.humidity
   displayEmoji(response.data.weather[0].main, response.data.weather[0].description)
   return input.value = response.data.name
@@ -214,8 +216,12 @@ function displayEmoji(main, description){
 function changeUnits(){
   if(this.value == 'celsius'){
     units = `&units=metric`
+    tempUnit= `°C`
+    speedUnit = `km/h`
   } else{
     units=`&units=imperial`
+    tempUnit = `°F`
+    speedUnit = `mph`
   }
   getWeather();
 }
