@@ -9,26 +9,26 @@ const months = ["January", "February", "March", "April", "May", "June", "July","
 date.innerHTML = `${days[now.getDay()]}, ${months[now.getMonth()]} ${now.getDate()}`
 
 //set Default Location data
-axios.get(`${apiUrl}cupertino&units=imperial&appid=${apiKey}`).then(getTemperature)
+axios.get(`${apiUrl}cupertino&units=imperial&appid=${apiKey}`).then(getDetails)
 
 //Functions
 function searchCity(event) {
   event.preventDefault()
   let input = document.querySelector("#search-bar")
-  axios.get(`${apiUrl}${input.value}&units=imperial&appid=${apiKey}`).then(getTemperature)
+  axios.get(`${apiUrl}${input.value}&units=imperial&appid=${apiKey}`).then(getDetails)
 }
 
 function showPosition(position){
   let longitude = position.coords.longitude
   let latitude = position.coords.latitude
-  axios.get(`${altUrl}lat=${latitude}&lon=${longitude}&units=imperial&appid=${apiKey}`).then(getTemperature)
+  axios.get(`${altUrl}lat=${latitude}&lon=${longitude}&units=imperial&appid=${apiKey}`).then(getDetails)
 }
 
 function currentLocation(){
   navigator.geolocation.getCurrentPosition(showPosition)
 }
 
-function getTemperature(response){  
+function getDetails(response){  
   let temp = document.querySelector("#current-temp")
   let city = document.querySelector("#city-name")
   let low = document.querySelector("#low")
@@ -48,10 +48,27 @@ function getTemperature(response){
   displayEmoji(response.data.weather[0].main, response.data.weather[0].description)
 }
 
+function changeColors(color, text){
+  //let button = document.querySelectorAll("button")
+  //button.forEach(button => {
+   // button.style.background = color;
+   // button.style.border = `1px solid #4facfe`
+ // })
+
+  document.querySelector("#main").style.background = color;
+  //h1: 
+  //h3: 
+  //current-temp: 
+  //main: 
+  //fog: background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
+  //clear: background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+}
+
 function displayEmoji(main, description){
   let emoji = document.querySelector('#main-emoji')
   switch(main){
     case "Clouds":
+      changeColors('linear-gradient(to top, #BDBBBE 0%, #727378 100%)');
       switch(description){
         case 'few clouds':
             emoji.innerHTML = '	&#x1F324;';
@@ -63,31 +80,40 @@ function displayEmoji(main, description){
             emoji.innerHTML = '&#x1F325;';
             break;
         case 'overcast clouds':
-            emoji.innerHTML = '&#9729';
+            emoji.innerHTML = '&#x2601;&#xFE0F;';
             break;
       }
     break;
     case "Clear":
+      changeColors('linear-gradient(to bottom, #4facfe 0%, #00f2fe 100%)');
       emoji.innerHTML = '&#9728;&#65039;';
       break;
     case "Snow":
+      changeColors('linear-gradient(to bottom, #546a91 0%, #bac8e0 100%)')
       emoji.innerHTML = '&#x1F328;';
       break;
     case "Rain":
+      changeColors('linear-gradient(to bottom, #575c66 0%, #87b1d4 100%)')
       emoji.innerHTML = '&#x1F327;';
       break;
     case "Thunderstorm":
+      changeColors('linear-gradient(to bottom, #575c66 0%, #87b1d4 100%)')
       emoji.innerHTML = '⛈';
       break;
     case "Drizzle":
+        changeColors('linear-gradient(to top, #ccdceb 0%, #727378 100%)');
       emoji.innerHTML = '&#x1F326;';
       break;
     case "Squall":
     case "Tornado": 
+      changeColors('linear-gradient(to bottom, #39373d 0%, #b09580 100%)');
       emoji.innerHTML = '&#x1F32A';
       break;
+    case 'Sand':
+      changeColors('linear-gradient(to bottom, #b3723a 0%, #d9a763 100%)');
     default:
-      emoji.innerHTML = '&#x1F32B'
+      emoji.innerHTML = '&#x1F32B';
+      changeColors('linear-gradient(to bottom, #bc8db9 0%, #5e5e90 100%)')
       break;
   }
 }
