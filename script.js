@@ -10,14 +10,17 @@ let input = document.querySelector("#search-bar")
 date.innerHTML = `${days[now.getDay()]}, ${months[now.getMonth()]} ${now.getDate()}`
 
 //set Default Location data
-axios.get(`${apiUrl}${input.value}${units}&appid=${apiKey}`).then(getDetails)
-axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${input.value}${units}&appid=${apiKey}`).then(displayForecast)
+function getWeather(){
+  axios.get(`${apiUrl}${input.value}${units}&appid=${apiKey}`).then(getDetails)
+  axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${input.value}${units}&appid=${apiKey}`).then(displayForecast)
+}
+
+getWeather();
 
 //Functions
 function searchCity(event) {
-  event.preventDefault()
-  axios.get(`${apiUrl}${input.value}${units}&appid=${apiKey}`).then(getDetails)
-  axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${input.value}${units}&appid=${apiKey}`).then(displayForecast)
+  event.preventDefault();
+  getWeather();
 }
 
 function formatHours(timestamp){
@@ -92,6 +95,7 @@ function getDetails(response){
   wind.innerHTML = `${response.data.wind.speed}mph`
   humidity.innerHTML = response.data.main.humidity
   displayEmoji(response.data.weather[0].main, response.data.weather[0].description)
+  return input.value = response.data.name
 }
 
 function changeColors(color, text){
@@ -213,8 +217,7 @@ function changeUnits(){
   } else{
     units=`&units=imperial`
   }
-  axios.get(`${apiUrl}${input.value}${units}&appid=${apiKey}`).then(getDetails)
-  axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${input.value}${units}&appid=${apiKey}`).then(displayForecast)
+  getWeather();
 }
 
 
