@@ -29,7 +29,6 @@ function currentLocation(){
 }
 
 function getTemperature(response){  
-  console.log(response)
   let temp = document.querySelector("#current-temp")
   let city = document.querySelector("#city-name")
   let low = document.querySelector("#low")
@@ -44,11 +43,54 @@ function getTemperature(response){
   high.innerHTML = (`${Math.round(response.data.main.temp_max)}°F`)
   description.innerHTML =  response.data.weather[0].main
   subdescription.innerHTML =  response.data.weather[0].description
-  wind.innerHTML = response.data.wind.speed
+  wind.innerHTML = `${response.data.wind.speed}mph`
   humidity.innerHTML = response.data.main.humidity
+  displayEmoji(response.data.weather[0].main, response.data.weather[0].description)
 }
 
-//wind speed, humidity, weather description
+function displayEmoji(main, description){
+  let emoji = document.querySelector('#main-emoji')
+  switch(main){
+    case "Clouds":
+      switch(description){
+        case 'few clouds':
+            emoji.innerHTML = '	&#x1F324;';
+            break;
+        case 'scattered clouds':
+            emoji.innerHTML = '&#x26C5;';
+            break;
+        case 'broken clouds':
+            emoji.innerHTML = '&#x1F325;';
+            break;
+        case 'overcast clouds':
+            emoji.innerHTML = '&#9729';
+            break;
+      }
+    break;
+    case "Clear":
+      emoji.innerHTML = '&#9728;&#65039;';
+      break;
+    case "Snow":
+      emoji.innerHTML = '&#x1F328;';
+      break;
+    case "Rain":
+      emoji.innerHTML = '&#x1F327;';
+      break;
+    case "Thunderstorm":
+      emoji.innerHTML = '⛈';
+      break;
+    case "Drizzle":
+      emoji.innerHTML = '&#x1F326;';
+      break;
+    case "Squall":
+    case "Tornado": 
+      emoji.innerHTML = '&#x1F32A';
+      break;
+    default:
+      emoji.innerHTML = '&#x1F32B'
+      break;
+  }
+}
 
 //Events
 let form = document.querySelector("form");

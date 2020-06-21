@@ -81,6 +81,15 @@ button {
     color: white;
 }
 
+#other-details{
+    position: relative;
+    font-family: 'Montserrat', sans-serif;
+    top: -20px;
+    left: 4px;
+    font-size: 13px;
+    color: gray;
+}
+
 #unit{
     position: relative;
     right: -215px;
@@ -91,6 +100,8 @@ button {
 /*emoji*/
 #main-emoji {
     font-size: 75px;
+    position: relative;
+    top: 8px;
 }
 
 /*text*/
@@ -154,6 +165,8 @@ h3 {
 
 #precip-details {
     font-family: 'Montserrat', sans-serif;
+    position: relative;
+    left: 4px;
 }
 
 
