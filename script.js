@@ -11,15 +11,12 @@ let tempUnit= `°F`
 let speedUnit = `mph`
 date.innerHTML = `${days[now.getDay()]}, ${months[now.getMonth()]} ${now.getDate()}`
 
-//set Default Location data
+//Functions
 function getWeather(){
   axios.get(`${apiUrl}${input.value}${units}&appid=${apiKey}`).then(getDetails)
   axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${input.value}${units}&appid=${apiKey}`).then(displayForecast)
 }
 
-getWeather();
-
-//Functions
 function searchCity(event) {
   event.preventDefault();
   getWeather();
@@ -100,13 +97,13 @@ function getDetails(response){
   return input.value = response.data.name
 }
 
-function changeColors(color, text){
-  //let button = document.querySelectorAll("button")
-  //button.forEach(button => {
-  //button.style.background = color;
-  //button.style.border = `0px solid #4facfe`
- //})
-  document.querySelector("#main").style.background = color;
+function changeColors(backgroundColor, secondColor){
+  let button = document.querySelectorAll("button")
+    button.forEach(button => {
+    button.style.background = secondColor;
+    button.style.border = `1px solid ${secondColor}`
+    })
+  document.querySelector("#main").style.background = backgroundColor;
   //h1: 
   //h3: 
   //current-temp: 
@@ -162,53 +159,55 @@ function displayEmoji(main, description){
     case "Clouds":
       switch(description){
         case 'few clouds':
-            changeColors('linear-gradient(to top, #a7bdca 0%, #5493b2)')
+            changeColors('linear-gradient(to top, #a7bdca 0%, #5493b2)', '#a7bdca')
             emoji.innerHTML = '	&#x1F324;';
             break;
         case 'scattered clouds':
-            changeColors('linear-gradient(to top, #a7bdca 0%, #5493b2)')
+            changeColors('linear-gradient(to top, #a7bdca 0%, #5493b2)', '#a7bdca')
             emoji.innerHTML = '&#x26C5;';
             break;
         case 'broken clouds':
-            changeColors('linear-gradient(to top, #BDBBBE 0%, #727378 100%)');
+            changeColors('linear-gradient(to top, #BDBBBE 0%, #727378 100%)', '#46474a');
             emoji.innerHTML = '&#x1F325;';
             break;
         case 'overcast clouds':
-            changeColors('linear-gradient(to top, #BDBBBE 0%, #727378 100%)');
+            changeColors('linear-gradient(to top, #BDBBBE 0%, #727378 100%)', '#46474a');
             emoji.innerHTML = '&#x2601;&#xFE0F;';
             break;
       }
     break;
     case "Clear":
-      changeColors('linear-gradient(to bottom, #4facfe 0%, #00f2fe 100%)');
+      changeColors('linear-gradient(to bottom, #4facfe 0%, #00f2fe 100%)', '#3a80bd');
       emoji.innerHTML = '&#9728;&#65039;';
       break;
     case "Snow":
-      changeColors('linear-gradient(to bottom, #546a91 0%, #bac8e0 100%)')
+      changeColors('linear-gradient(to bottom, #546a91 0%, #bac8e0 100%)', '#303d54')
       emoji.innerHTML = '&#x1F328;';
       break;
     case "Rain":
-      changeColors('linear-gradient(to bottom, #575c66 0%, #87b1d4 100%)')
+      changeColors('linear-gradient(to bottom, #575c66 0%, #87b1d4 100%)', '#32353b')
       emoji.innerHTML = '&#x1F327;';
       break;
     case "Thunderstorm":
-      changeColors('linear-gradient(to bottom, #575c66 0%, #87b1d4 100%)')
+      changeColors('linear-gradient(to bottom, #575c66 0%, #87b1d4 100%)', '#32353b')
       emoji.innerHTML = '⛈';
       break;
     case "Drizzle":
-        changeColors('linear-gradient(to top, #ccdceb 0%, #727378 100%)');
+        changeColors('linear-gradient(to top, #ccdceb 0%, #727378 100%)', '#47474a');
       emoji.innerHTML = '&#x1F326;';
       break;
     case "Squall":
     case "Tornado": 
-      changeColors('linear-gradient(to bottom, #39373d 0%, #b09580 100%)');
+      changeColors('linear-gradient(to bottom, #39373d 0%, #b09580 100%)', '#242226');
       emoji.innerHTML = '&#x1F32A';
       break;
     case 'Sand':
-      changeColors('linear-gradient(to bottom, #b3723a 0%, #d9a763 100%)');
+      changeColors('linear-gradient(to bottom, #b3723a 0%, #d9a763 100%)', '#734a26');
+      emoji.innerHTML = '&#x1F32B';
+      break;
     default:
       emoji.innerHTML = '&#x1F32B';
-      changeColors('linear-gradient(to bottom, #bc8db9 0%, #5e5e90 100%)')
+      changeColors('linear-gradient(to bottom, #bc8db9 0%, #5e5e90 100%)', '#5e5e90')
       break;
   }
 }
@@ -226,7 +225,7 @@ function changeUnits(){
   getWeather();
 }
 
-
+getWeather();
 //Events
 let form = document.querySelector("form");
 form.addEventListener("submit", searchCity);
